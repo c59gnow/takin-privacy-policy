@@ -1,0 +1,3737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leaderboard - All</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #0b1020; color: #e8ecf7; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 24px; margin-bottom: 12px; color: #ffdd55; }
+    h2 { font-size: 18px; margin: 0 0 8px 0; color: #ffdd55; }
+    .meta { font-size: 13px; color: #9fb3d9; margin-bottom: 12px; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .controls label { font-size: 13px; color: #9fb3d9; }
+    .controls select { background: #111a33; color: #e8ecf7; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 6px 10px; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.04); }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #9fb3d9; }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .empty { text-align: center; padding: 24px; color: #9fb3d9; }
+    .board { display: none; margin-top: 16px; }
+    .board.active { display: block; }
+    .footer { margin-top: 16px; font-size: 12px; color: #9fb3d9; }
+    .reads-badge { position: fixed; top: 12px; left: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 6px 10px; font-size: 12px; color: #c9d6f2; }
+    details.debug { margin-top: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; }
+    details.debug summary { cursor: pointer; font-size: 13px; color: #9fb3d9; }
+    details.debug pre { white-space: pre-wrap; font-size: 11px; color: #c9d6f2; margin: 8px 0 0 0; }
+    .debug-line { font-size: 12px; color: #c9d6f2; margin-top: 6px; }
+    .debug-error { color: #ffb4b4; }
+  </style>
+</head>
+<body>
+  <div class="reads-badge">Lectures Firebase: 70 (est.)</div>
+  <div class="container">
+    <h1>Leaderboard - All</h1>
+    <div class="controls">
+      <label for="boardSelect">Leaderboard</label>
+      <select id="boardSelect">
+        <option value="size-3" selected>Size 3 (non-daily) (23)</option>
+<option value="size-4">Size 4 (non-daily) (5)</option>
+<option value="size-5">Size 5 (non-daily) (0)</option>
+<option value="size-6">Size 6 (non-daily) (0)</option>
+<option value="daily-2026-01-08">Daily 2026-01-08 (2)</option>
+<option value="daily-2026-01-07">Daily 2026-01-07 (2)</option>
+<option value="daily-2026-01-06">Daily 2026-01-06 (3)</option>
+<option value="daily-2026-01-05">Daily 2026-01-05 (1)</option>
+<option value="daily-2026-01-04">Daily 2026-01-04 (2)</option>
+<option value="daily-2026-01-03">Daily 2026-01-03 (0)</option>
+<option value="daily-2026-01-02">Daily 2026-01-02 (0)</option>
+<option value="daily-2026-01-01">Daily 2026-01-01 (0)</option>
+<option value="daily-2025-12-31">Daily 2025-12-31 (0)</option>
+<option value="daily-2025-12-30">Daily 2025-12-30 (0)</option>
+<option value="level-animals-1">Level animals-1 (0)</option>
+<option value="level-animals-2">Level animals-2 (0)</option>
+<option value="level-animals-3">Level animals-3 (0)</option>
+<option value="level-animals-4">Level animals-4 (0)</option>
+<option value="level-animals-5">Level animals-5 (0)</option>
+<option value="level-architecture-1">Level architecture-1 (0)</option>
+<option value="level-architecture-2">Level architecture-2 (0)</option>
+<option value="level-art-1">Level art-1 (0)</option>
+<option value="level-city-1">Level city-1 (0)</option>
+<option value="level-city-2">Level city-2 (0)</option>
+<option value="level-city-3">Level city-3 (0)</option>
+<option value="level-city-5">Level city-5 (0)</option>
+<option value="level-colors-1">Level colors-1 (0)</option>
+<option value="level-desert-1">Level desert-1 (0)</option>
+<option value="level-desert-2">Level desert-2 (0)</option>
+<option value="level-kids-1">Level kids-1 (0)</option>
+<option value="level-mountains-1">Level mountains-1 (0)</option>
+<option value="level-ocean-1">Level ocean-1 (0)</option>
+<option value="level-peluche-1">Level peluche-1 (0)</option>
+<option value="level-peluche-2">Level peluche-2 (0)</option>
+<option value="level-peluche-3">Level peluche-3 (0)</option>
+<option value="level-peluche-4">Level peluche-4 (0)</option>
+      </select>
+    </div>
+    <div class="meta">Generated: 2026-01-08 22:01:41.374 UTC | Boards: 36 | Limit: 30 | Daily limit: 10 | Daily range: 2025-12-30 to 2026-01-08 | Levels: 22</div>
+    <details class="debug">
+  <summary>Debug (all)</summary>
+  <pre>{
+  &quot;projectId&quot;: &quot;takin-300f8&quot;,
+  &quot;database&quot;: &quot;(default)&quot;,
+  &quot;dailyDates&quot;: [
+    &quot;2026-01-08&quot;,
+    &quot;2026-01-07&quot;,
+    &quot;2026-01-06&quot;,
+    &quot;2026-01-05&quot;,
+    &quot;2026-01-04&quot;,
+    &quot;2026-01-03&quot;,
+    &quot;2026-01-02&quot;,
+    &quot;2026-01-01&quot;,
+    &quot;2025-12-31&quot;,
+    &quot;2025-12-30&quot;
+  ],
+  &quot;levelIds&quot;: [
+    &quot;animals-1&quot;,
+    &quot;animals-2&quot;,
+    &quot;animals-3&quot;,
+    &quot;animals-4&quot;,
+    &quot;animals-5&quot;,
+    &quot;architecture-1&quot;,
+    &quot;architecture-2&quot;,
+    &quot;art-1&quot;,
+    &quot;city-1&quot;,
+    &quot;city-2&quot;,
+    &quot;city-3&quot;,
+    &quot;city-5&quot;,
+    &quot;colors-1&quot;,
+    &quot;desert-1&quot;,
+    &quot;desert-2&quot;,
+    &quot;kids-1&quot;,
+    &quot;mountains-1&quot;,
+    &quot;ocean-1&quot;,
+    &quot;peluche-1&quot;,
+    &quot;peluche-2&quot;,
+    &quot;peluche-3&quot;,
+    &quot;peluche-4&quot;
+  ],
+  &quot;readsEstimate&quot;: 70,
+  &quot;readsBreakdown&quot;: {
+    &quot;sizes&quot;: 38,
+    &quot;daily&quot;: 10,
+    &quot;levels&quot;: 0,
+    &quot;level_list&quot;: 22,
+    &quot;total&quot;: 70
+  },
+  &quot;maxLevels&quot;: null
+}</pre>
+</details>
+    <section class="board" data-board="size-3">
+  <h2>Size 3 (non-daily)</h2>
+  <div class="meta">Non-daily scores (filtered) | Limit: 30 | Count: 23 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Gaby</td>
+  <td>18</td>
+  <td>00:07</td>
+  <td>3</td>
+  <td>desert-2</td>
+  <td>2026-01-04 21:08:33.987 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Gaby</td>
+  <td>20</td>
+  <td>00:08</td>
+  <td>3</td>
+  <td>animals-1</td>
+  <td>2026-01-04 21:47:08.096 UTC</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Gaby</td>
+  <td>22</td>
+  <td>00:10</td>
+  <td>3</td>
+  <td>colors-1</td>
+  <td>2026-01-04 21:09:29.649 UTC</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Gaby</td>
+  <td>26</td>
+  <td>00:19</td>
+  <td>3</td>
+  <td>animals-4</td>
+  <td>2026-01-04 01:13:16.708 UTC</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Gaby</td>
+  <td>28</td>
+  <td>00:11</td>
+  <td>3</td>
+  <td>animals-3</td>
+  <td>2026-01-04 00:53:19.386 UTC</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Gaby</td>
+  <td>28</td>
+  <td>00:14</td>
+  <td>3</td>
+  <td>animals-2</td>
+  <td>2026-01-04 20:48:39.644 UTC</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Gaby</td>
+  <td>30</td>
+  <td>00:11</td>
+  <td>3</td>
+  <td>architecture-1</td>
+  <td>2026-01-04 00:57:41.632 UTC</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Gaby</td>
+  <td>30</td>
+  <td>00:12</td>
+  <td>3</td>
+  <td>art-1</td>
+  <td>2026-01-04 00:49:21.896 UTC</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td>Floflo</td>
+  <td>30</td>
+  <td>00:13</td>
+  <td>3</td>
+  <td>art-1</td>
+  <td>2026-01-04 23:38:52.355 UTC</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td>Floflo</td>
+  <td>36</td>
+  <td>00:13</td>
+  <td>3</td>
+  <td>architecture-1</td>
+  <td>2026-01-04 23:10:34.134 UTC</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td>Gaby</td>
+  <td>44</td>
+  <td>00:18</td>
+  <td>3</td>
+  <td>ocean-1</td>
+  <td>2026-01-06 23:42:28.716 UTC</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td>Gaby</td>
+  <td>46</td>
+  <td>00:22</td>
+  <td>3</td>
+  <td>peluche-1</td>
+  <td>2026-01-04 01:47:50.751 UTC</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td>Gaby</td>
+  <td>48</td>
+  <td>00:17</td>
+  <td>3</td>
+  <td>city-1</td>
+  <td>2026-01-04 18:41:52.493 UTC</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td>Floflo</td>
+  <td>50</td>
+  <td>00:20</td>
+  <td>3</td>
+  <td>animals-1</td>
+  <td>2026-01-04 22:58:24.339 UTC</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td>Gaby</td>
+  <td>50</td>
+  <td>00:28</td>
+  <td>3</td>
+  <td>peluche-2</td>
+  <td>2026-01-04 01:48:42.531 UTC</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td>Floflo</td>
+  <td>52</td>
+  <td>00:25</td>
+  <td>3</td>
+  <td>desert-2</td>
+  <td>2026-01-04 23:51:02.512 UTC</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td>Floflo</td>
+  <td>54</td>
+  <td>00:21</td>
+  <td>3</td>
+  <td>desert-1</td>
+  <td>2026-01-04 23:50:20.524 UTC</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td>Floflo</td>
+  <td>54</td>
+  <td>00:27</td>
+  <td>3</td>
+  <td>city-1</td>
+  <td>2026-01-05 14:14:32.544 UTC</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td>Gaby</td>
+  <td>58</td>
+  <td>00:21</td>
+  <td>3</td>
+  <td>city-2</td>
+  <td>2026-01-06 23:15:21.944 UTC</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td>Gaby</td>
+  <td>62</td>
+  <td>00:27</td>
+  <td>3</td>
+  <td>mountains-1</td>
+  <td>2026-01-08 17:26:12.420 UTC</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td>Gaby</td>
+  <td>68</td>
+  <td>00:34</td>
+  <td>3</td>
+  <td>desert-1</td>
+  <td>2026-01-04 21:07:56.791 UTC</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td>Gaby</td>
+  <td>70</td>
+  <td>00:39</td>
+  <td>3</td>
+  <td>architecture-2</td>
+  <td>2026-01-04 18:40:57.143 UTC</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td>Gaby</td>
+  <td>78</td>
+  <td>00:48</td>
+  <td>3</td>
+  <td>kids-1</td>
+  <td>2026-01-07 00:28:27.498 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Fetch limit: 150</div>
+<div class="debug-line">Raw count: 27</div>
+<div class="debug-line">Filtered count: 23</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;size&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;integerValue&quot;: &quot;3&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 150
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="size-4">
+  <h2>Size 4 (non-daily)</h2>
+  <div class="meta">Non-daily scores (filtered) | Limit: 30 | Count: 5 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Gaby</td>
+  <td>104</td>
+  <td>00:55</td>
+  <td>4</td>
+  <td>city-3</td>
+  <td>2026-01-04 01:15:05.041 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Gaby</td>
+  <td>116</td>
+  <td>01:07</td>
+  <td>4</td>
+  <td>peluche-3</td>
+  <td>2026-01-04 01:50:06.337 UTC</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Floflo</td>
+  <td>132</td>
+  <td>00:56</td>
+  <td>4</td>
+  <td>city-5</td>
+  <td>2026-01-05 19:59:15.126 UTC</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Gaby</td>
+  <td>132</td>
+  <td>01:01</td>
+  <td>4</td>
+  <td>animals-5</td>
+  <td>2026-01-04 22:45:08.217 UTC</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Gaby</td>
+  <td>154</td>
+  <td>01:34</td>
+  <td>4</td>
+  <td>peluche-4</td>
+  <td>2026-01-04 01:52:21.361 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Fetch limit: 150</div>
+<div class="debug-line">Raw count: 6</div>
+<div class="debug-line">Filtered count: 5</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;size&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;integerValue&quot;: &quot;4&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 150
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="size-5">
+  <h2>Size 5 (non-daily)</h2>
+  <div class="meta">Non-daily scores (filtered) | Limit: 30 | Count: 0 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Fetch limit: 150</div>
+<div class="debug-line">Raw count: 3</div>
+<div class="debug-line">Filtered count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;size&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;integerValue&quot;: &quot;5&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 150
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="size-6">
+  <h2>Size 6 (non-daily)</h2>
+  <div class="meta">Non-daily scores (filtered) | Limit: 30 | Count: 0 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Fetch limit: 150</div>
+<div class="debug-line">Raw count: 2</div>
+<div class="debug-line">Filtered count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;size&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;integerValue&quot;: &quot;6&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 150
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-08">
+  <h2>Daily 2026-01-08</h2>
+  <div class="meta">Daily scores (group) | Limit: 10 | Count: 2 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Gaby</td>
+  <td>48</td>
+  <td>00:20</td>
+  <td>3</td>
+  <td></td>
+  <td>2026-01-07 23:26:02.883 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Florine</td>
+  <td>156</td>
+  <td>01:50</td>
+  <td>3</td>
+  <td></td>
+  <td>2026-01-08 17:58:30.416 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-08&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 2</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-08&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-07">
+  <h2>Daily 2026-01-07</h2>
+  <div class="meta">Daily scores (group) | Limit: 10 | Count: 2 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Florine</td>
+  <td>536</td>
+  <td>05:44</td>
+  <td>6</td>
+  <td></td>
+  <td>2026-01-07 10:46:57.098 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Gaby</td>
+  <td>586</td>
+  <td>08:57</td>
+  <td>6</td>
+  <td></td>
+  <td>2026-01-06 23:09:26.610 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-07&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 2</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-07&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-06">
+  <h2>Daily 2026-01-06</h2>
+  <div class="meta">Daily scores (group) | Limit: 10 | Count: 3 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Floflo</td>
+  <td>314</td>
+  <td>03:15</td>
+  <td>5</td>
+  <td></td>
+  <td>2026-01-06 04:02:44.859 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Gabytest</td>
+  <td>318</td>
+  <td>04:04</td>
+  <td>5</td>
+  <td></td>
+  <td>2026-01-06 18:56:08.902 UTC</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Gaby</td>
+  <td>360</td>
+  <td>03:11</td>
+  <td>5</td>
+  <td></td>
+  <td>2026-01-06 17:42:13.579 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-06&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 3</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-06&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-05">
+  <h2>Daily 2026-01-05</h2>
+  <div class="meta">Daily scores (group) | Limit: 10 | Count: 1 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Floflo</td>
+  <td>120</td>
+  <td>01:03</td>
+  <td>4</td>
+  <td></td>
+  <td>2026-01-05 19:57:05.670 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-05&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 1</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-05&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-04">
+  <h2>Daily 2026-01-04</h2>
+  <div class="meta">Daily scores (group) | Limit: 10 | Count: 2 | Source: collection_group</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>1</td>
+  <td>Gaby</td>
+  <td>34</td>
+  <td>00:16</td>
+  <td>3</td>
+  <td></td>
+  <td>2026-01-04 20:30:35.950 UTC</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Floflo</td>
+  <td>44</td>
+  <td>00:20</td>
+  <td>3</td>
+  <td></td>
+  <td>2026-01-04 22:57:02.686 UTC</td>
+</tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection_group</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-04&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 2</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-04&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-03">
+  <h2>Daily 2026-01-03</h2>
+  <div class="meta">Daily scores | Limit: 10 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-03&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-03&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-02">
+  <h2>Daily 2026-01-02</h2>
+  <div class="meta">Daily scores | Limit: 10 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-02&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-02&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2026-01-01">
+  <h2>Daily 2026-01-01</h2>
+  <div class="meta">Daily scores | Limit: 10 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2026-01-01&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2026-01-01&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2025-12-31">
+  <h2>Daily 2025-12-31</h2>
+  <div class="meta">Daily scores | Limit: 10 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2025-12-31&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2025-12-31&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="daily-2025-12-30">
+  <h2>Daily 2025-12-30</h2>
+  <div class="meta">Daily scores | Limit: 10 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_daily_leaderboards/2025-12-30&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;daily_date&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;2025-12-30&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 10
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-animals-1">
+  <h2>Level animals-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/animals-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;animals-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-animals-2">
+  <h2>Level animals-2</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/animals-2&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;animals-2&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-animals-3">
+  <h2>Level animals-3</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/animals-3&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;animals-3&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-animals-4">
+  <h2>Level animals-4</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/animals-4&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;animals-4&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-animals-5">
+  <h2>Level animals-5</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/animals-5&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;animals-5&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-architecture-1">
+  <h2>Level architecture-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/architecture-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;architecture-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-architecture-2">
+  <h2>Level architecture-2</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/architecture-2&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;architecture-2&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-art-1">
+  <h2>Level art-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/art-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;art-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-city-1">
+  <h2>Level city-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/city-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;city-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-city-2">
+  <h2>Level city-2</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/city-2&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;city-2&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-city-3">
+  <h2>Level city-3</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/city-3&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;city-3&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-city-5">
+  <h2>Level city-5</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/city-5&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;city-5&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-colors-1">
+  <h2>Level colors-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/colors-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;colors-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-desert-1">
+  <h2>Level desert-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/desert-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;desert-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-desert-2">
+  <h2>Level desert-2</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/desert-2&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;desert-2&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-kids-1">
+  <h2>Level kids-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/kids-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;kids-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-mountains-1">
+  <h2>Level mountains-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/mountains-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;mountains-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-ocean-1">
+  <h2>Level ocean-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/ocean-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;ocean-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-peluche-1">
+  <h2>Level peluche-1</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/peluche-1&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;peluche-1&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-peluche-2">
+  <h2>Level peluche-2</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/peluche-2&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;peluche-2&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-peluche-3">
+  <h2>Level peluche-3</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/peluche-3&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;peluche-3&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+<section class="board" data-board="level-peluche-4">
+  <h2>Level peluche-4</h2>
+  <div class="meta">Level scores | Limit: 30 | Count: 0 | Source: collection</div>
+  <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Moves</th>
+          <th>Time</th>
+          <th>Size</th>
+          <th>Level</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" class="empty">No data returned.</td></tr>
+      </tbody>
+    </table>
+  <details class="debug">
+  <summary>Debug (board)</summary>
+  <div class="debug-line">Source: collection</div>
+<div class="debug-line">Direct count: 0</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents/takin_leaderboards/peluche-4&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;
+      }
+    ],
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+<div class="debug-line">Group count: 0</div>
+<div class="debug-line debug-error">Group error: HTTP 400: [{
+  &quot;error&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/takin-300f8/firestore/indexes?create_composite=Ckpwcm9qZWN0cy90YWtpbi0zMDBmOC9kYXRhYmFzZXMvKGRlZmF1bHQpL2NvbGxlY3Rpb25Hcm91cHMvc2NvcmVzL2luZGV4ZXMvXxACGgwKCGxldmVsX2lkEAEaCQoFbW92ZXMQARoLCgd0aW1lX21zEAEaDAoIX19uYW1lX18QAQ&quot;,
+    &quot;status&quot;: &quot;FAILED_PRECONDITION&quot;
+  }
+}
+]</div>
+<pre>{
+  &quot;parent&quot;: &quot;projects/takin-300f8/databases/(default)/documents&quot;,
+  &quot;structuredQuery&quot;: {
+    &quot;from&quot;: [
+      {
+        &quot;collectionId&quot;: &quot;scores&quot;,
+        &quot;allDescendants&quot;: true
+      }
+    ],
+    &quot;where&quot;: {
+      &quot;fieldFilter&quot;: {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;level_id&quot;
+        },
+        &quot;op&quot;: &quot;EQUAL&quot;,
+        &quot;value&quot;: {
+          &quot;stringValue&quot;: &quot;peluche-4&quot;
+        }
+      }
+    },
+    &quot;orderBy&quot;: [
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;moves&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      },
+      {
+        &quot;field&quot;: {
+          &quot;fieldPath&quot;: &quot;time_ms&quot;
+        },
+        &quot;direction&quot;: &quot;ASCENDING&quot;
+      }
+    ],
+    &quot;limit&quot;: 30
+  }
+}</pre>
+</details>
+</section>
+    <div class="footer">Source: Firestore takin_leaderboards / takin_daily_leaderboards.</div>
+  </div>
+  <script>
+    (function () {
+      var select = document.getElementById("boardSelect");
+      var boards = document.querySelectorAll(".board");
+      function showBoard(id) {
+        boards.forEach(function (board) {
+          if (board.dataset.board === id) {
+            board.classList.add("active");
+          } else {
+            board.classList.remove("active");
+          }
+        });
+      }
+      if (select) {
+        showBoard(select.value);
+        select.addEventListener("change", function () {
+          showBoard(select.value);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,125 +1,1102 @@
-<!DOCTYPE html>
-<html lang="fr">
+﻿<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Règles de confidentialité – Jeu de Takin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #fafafa;
-            color: #333;
-        }
-        h1, h2 {
-            color: #222;
-        }
-        h1 {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-        }
-        section {
-            margin-bottom: 25px;
-        }
-        ul {
-            margin-left: 20px;
-        }
-        footer {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Takin - Sliding Puzzle Adventure</title>
+  <meta name="description" content="Takin is a modern sliding puzzle with daily challenges, custom photo puzzles, and vibrant themes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-1: #0c3b48;
+      --bg-2: #0a2e39;
+      --bg-3: #071e27;
+      --text: #f3f7fb;
+      --muted: #b7c8d4;
+      --card: rgba(7, 24, 30, 0.7);
+      --stroke: rgba(255, 255, 255, 0.14);
+      --accent: #ffb647;
+      --accent-2: #5ad0ff;
+      --accent-3: #ff7a7a;
+      --shadow: rgba(0, 0, 0, 0.35);
+      --font-display: "Fraunces", serif;
+      --font-body: "Space Grotesk", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(90, 208, 255, 0.2), transparent 45%),
+        radial-gradient(circle at 80% 15%, rgba(255, 182, 71, 0.2), transparent 50%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 45%, var(--bg-3) 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1140px, 92vw);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 18px 0;
+      background: rgba(7, 24, 30, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px var(--shadow);
+    }
+
+    .logo span {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-actions {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: rgba(10, 28, 36, 0.6);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-toggle-icon {
+      position: relative;
+      width: 18px;
+      height: 12px;
+      border-top: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+    }
+
+    .nav-toggle-icon::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 4px;
+      border-top: 2px solid currentColor;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(10, 28, 36, 0.6);
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      color: #0b1c23;
+      background: var(--accent);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+      align-items: center;
+      padding: 48px 0 32px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(8, 22, 30, 0.65);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
+      margin: 20px 0 8px;
+      line-height: 1.05;
+    }
+
+    .hero-title {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      display: block;
+      font-family: var(--font-body);
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+      color: var(--text);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 24px 0 12px;
+    }
+
+    .store-block {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .store-link {
+      font-size: 0.85rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #ffcf7a);
+      color: #1c1409;
+      box-shadow: 0 12px 24px rgba(255, 182, 71, 0.35);
+    }
+
+    .btn.ghost {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--text);
+      background: rgba(12, 32, 40, 0.6);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .phone-stack {
+      position: relative;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone {
+      width: min(280px, 70vw);
+      border-radius: 30px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 20, 26, 0.9);
+      box-shadow: 0 24px 60px var(--shadow);
+      position: absolute;
+      transform: rotate(-4deg);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .phone.phone-2 {
+      transform: rotate(6deg) translate(40px, 20px);
+      width: min(260px, 64vw);
+      animation-delay: 1.2s;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin: 22px 0 0;
+    }
+
+    .stat-card {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(9, 26, 34, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+
+    section {
+      scroll-margin-top: 110px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      margin: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h3 {
+      margin: 16px 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 36px;
+      align-items: center;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .checklist li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(90, 208, 255, 0.2);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    .frame {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+      background: rgba(8, 20, 26, 0.7);
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    .theme-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 200px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 20, 26, 0.7);
+    }
+
+    .theme-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1);
+    }
+
+    .theme-card.theme-abstract {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(90, 208, 255, 0.6), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(255, 182, 71, 0.5), transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(255, 122, 122, 0.55), transparent 65%),
+        linear-gradient(135deg, #142a33, #0b1c23);
+    }
+
+    .theme-label {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(8, 20, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-weight: 600;
+    }
+
+    .callout-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 182, 71, 0.2), rgba(90, 208, 255, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .callout-card h2 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+    }
+
+    .callout-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    body.ready .reveal {
+      animation: reveal 0.8s ease forwards;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: rotate(-4deg) translateY(0);
+      }
+      50% {
+        transform: rotate(-4deg) translateY(-12px);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .phone {
+        position: relative;
+        width: min(280px, 76vw);
+      }
+      .phone.phone-2 {
+        position: relative;
+        transform: rotate(4deg) translate(0, 0);
+        width: min(260px, 72vw);
+      }
+      .phone-stack {
+        gap: 18px;
+      }
+      .callout-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: center;
+      }
+
+      .logo {
+        order: 1;
+      }
+
+      .nav-actions {
+        order: 2;
+        margin-left: auto;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        order: 3;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(8, 20, 26, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: none;
+      }
+
+      .nav.is-open .nav-links {
+        display: flex;
+      }
+
+      .nav-links a {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .phone {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="site-header">
+    <div class="container nav" data-nav>
+      <a class="logo" href="#top">
+        <img src="assets/app-logo.png" alt="Takin app logo" />
+        <span>Takin</span>
+      </a>
+      <nav class="nav-links" id="site-menu" data-nav-menu>
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#gameplay" data-i18n="nav_gameplay">Gameplay</a>
+        <a href="#themes" data-i18n="nav_themes">Themes</a>
+        <a href="#download" data-i18n="nav_download">Download</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-nav-toggle>
+          <span data-i18n="nav_menu">Menu</span>
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" data-lang-toggle aria-pressed="true">EN</button>
+          <button type="button" data-lang="fr" data-lang-toggle aria-pressed="false">FR</button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<h1>Règles de confidentialité</h1>
+  <main id="top">
+    <section class="hero container">
+      <div>
+        <div class="pill reveal" data-i18n="hero_tag">Sliding puzzle, reimagined</div>
+        <h1 class="reveal">
+          <span class="hero-title" data-i18n="hero_title">Takin</span>
+          <span class="hero-subtitle" data-i18n="hero_subtitle">Classic sliding puzzle with modern charm.</span>
+        </h1>
+        <p class="lead reveal" data-i18n="hero_body">
+          Solve daily challenges, unlock cozy themes, and turn your own photos into puzzles. Made for quick sessions or long, relaxing runs.
+        </p>
+        <div class="cta-row reveal">
+          <a class="btn primary" href="#download" data-i18n="hero_cta_primary">Get the app</a>
+          <a class="btn ghost" href="#gameplay" data-i18n="hero_cta_secondary">See gameplay</a>
+        </div>
+        <div class="hero-note reveal" data-i18n="hero_note">No stress. Just satisfying moves and smart hints when you want them.</div>
+        <div class="stats">
+          <div class="stat-card reveal" style="animation-delay: 0.1s">
+            <span data-i18n="stat_daily">Daily puzzle</span>
+            <div data-i18n="stat_daily_sub">Keep the streak alive.</div>
+          </div>
+          <div class="stat-card reveal" style="animation-delay: 0.2s">
+            <span data-i18n="stat_custom">Custom photos</span>
+            <div data-i18n="stat_custom_sub">Play with your memories.</div>
+          </div>
+          <div class="stat-card reveal" style="animation-delay: 0.3s">
+            <span data-i18n="stat_rank">Leaderboards</span>
+            <div data-i18n="stat_rank_sub">Compete by moves and time.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-stack">
+        <div class="phone phone-1 reveal" style="animation-delay: 0.15s">
+          <img src="assets/screen-01.png" alt="" />
+        </div>
+        <div class="phone phone-2 reveal" style="animation-delay: 0.3s">
+          <img src="assets/screen-02.png" alt="" />
+        </div>
+      </div>
+    </section>
 
-<section>
-    <p>
-        La présente politique de confidentialité explique comment le jeu de puzzle
-        <strong>Takin</strong> traite les données des utilisateurs.
-        La protection de votre vie privée est une priorité.
-    </p>
-</section>
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="features_title">Built for focus and flow</h2>
+          <p data-i18n="features_sub">Daily puzzles, custom photos, and smart tools that keep every move satisfying.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="card reveal" style="animation-delay: 0.05s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v4m0 10v4m9-9h-4M7 12H3m14.5-5.5L18 7m-12 12 1.5-1.5m0-11L6 7m12 12-1.5-1.5" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="4" stroke="#ffb647" stroke-width="2" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_daily_title">Daily challenge</h3>
+            <p data-i18n="feature_daily_body">A fresh puzzle every day with streaks and rewards.</p>
+          </div>
+          <div class="card reveal" style="animation-delay: 0.1s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h4l2 2 4-4 4 4" stroke="#ff7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 20h18" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_progress_title">Progressive difficulty</h3>
+            <p data-i18n="feature_progress_body">Start simple and slide into bigger grids as you level up.</p>
+          </div>
+          <div class="card reveal" style="animation-delay: 0.15s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="4" y="5" width="16" height="14" rx="3" stroke="#ffb647" stroke-width="2" />
+                <path d="M8 9h8M8 13h4" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_custom_title">Your photos, your puzzle</h3>
+            <p data-i18n="feature_custom_body">Pick a photo from your phone and choose the size.</p>
+          </div>
+          <div class="card reveal" style="animation-delay: 0.2s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 11h8M8 15h5" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 7a3 3 0 0 1 3-3h7l4 4v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7z" stroke="#ff7a7a" stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_help_title">Smart help</h3>
+            <p data-i18n="feature_help_body">Show numbers, swap tiles, or preview the solution when you want a nudge.</p>
+          </div>
+          <div class="card reveal" style="animation-delay: 0.25s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="8" stroke="#ffb647" stroke-width="2" />
+                <path d="M12 8v4l2 2" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_themes_title">Curated themes</h3>
+            <p data-i18n="feature_themes_body">Food, art, city, nature, and more, all illustrated and polished.</p>
+          </div>
+          <div class="card reveal" style="animation-delay: 0.3s">
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 20h10M8 8h8l-1 6H9L8 8z" stroke="#5ad0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 4h6" stroke="#ffb647" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 data-i18n="feature_leader_title">Leaderboards</h3>
+            <p data-i18n="feature_leader_body">Compete with friends and climb the global ranks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section>
-    <h2>Collecte des données</h2>
-    <p>
-        Le jeu <strong>Takin</strong> ne collecte, ne stocke et ne partage aucune donnée personnelle
-        identifiable telle que :
-    </p>
-    <ul>
-        <li>Nom</li>
-        <li>Adresse e-mail</li>
-        <li>Numéro de téléphone</li>
-        <li>Adresse postale</li>
-    </ul>
-</section>
+    <section id="gameplay" class="section">
+      <div class="container split">
+        <div class="reveal">
+          <div class="section-head">
+            <h2 data-i18n="gameplay_title">Classic sliding puzzle, modern polish</h2>
+            <p data-i18n="gameplay_body">Every puzzle is designed for clean moves, clear goals, and a calm visual style inspired by the app.</p>
+          </div>
+          <ul class="checklist">
+            <li data-i18n="gameplay_list_1">Tap to slide tiles and track your moves.</li>
+            <li data-i18n="gameplay_list_2">Choose from multiple grid sizes, from 3x3 to 6x6.</li>
+            <li data-i18n="gameplay_list_3">Unlock stars, themes, and music as you progress.</li>
+            <li data-i18n="gameplay_list_4">Play offline and pick up where you left off.</li>
+          </ul>
+        </div>
+        <div class="gallery">
+          <div class="frame reveal" style="animation-delay: 0.15s">
+            <img src="assets/screen-02.png" alt="" loading="lazy" />
+          </div>
+          <div class="frame reveal" style="animation-delay: 0.25s">
+            <img src="assets/screen-01.png" alt="" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section>
-    <h2>Données liées à l’appareil</h2>
-    <p>
-        L’application peut utiliser des informations techniques anonymes
-        strictement nécessaires à son fonctionnement (par exemple : type d’appareil,
-        version du système), sans permettre l’identification de l’utilisateur.
-    </p>
-</section>
+    <section id="themes" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="themes_title">Themes that feel alive</h2>
+          <p data-i18n="themes_body">Collect playful collections inspired by food, animals, nature, space, and more.</p>
+        </div>
+        <div class="themes-grid">
+          <div class="theme-card theme-abstract reveal" style="animation-delay: 0.05s">
+            <div class="theme-label" data-i18n="theme_abstract">Abstract</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.08s">
+            <img src="assets/theme-animals.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_animals">Animals</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.11s">
+            <img src="assets/theme-architecture.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_architecture">Architecture</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.14s">
+            <img src="assets/theme-art.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_art">Art</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.17s">
+            <img src="assets/theme-city.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_city">City</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.2s">
+            <img src="assets/theme-colors.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_colors">Colors</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.23s">
+            <img src="assets/theme-desert.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_desert">Desert</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.26s">
+            <img src="assets/theme-food.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_food">Food</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.29s">
+            <img src="assets/theme-forest.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_forest">Forest</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.32s">
+            <img src="assets/theme-kids.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_kids">Kids</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.35s">
+            <img src="assets/theme-mountains.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_mountains">Mountains</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.38s">
+            <img src="assets/theme-nature.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_nature">Nature</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.41s">
+            <img src="assets/theme-ocean.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_ocean">Ocean</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.44s">
+            <img src="assets/theme-peluche.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_peluche">Peluche</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.47s">
+            <img src="assets/theme-space.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_space">Space</div>
+          </div>
+          <div class="theme-card reveal" style="animation-delay: 0.5s">
+            <img src="assets/theme-travel.jpg" alt="" loading="lazy" />
+            <div class="theme-label" data-i18n="theme_travel">Travel</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section>
-    <h2>Publicité</h2>
-    <p>
-        Le jeu peut afficher des publicités.
-        Les éventuels partenaires publicitaires peuvent collecter des données anonymes
-        conformément à leurs propres règles de confidentialité.
-    </p>
-    <p>
-        Aucune donnée personnelle n’est intentionnellement collectée par le développeur.
-    </p>
-</section>
+    <section id="download" class="section">
+      <div class="container callout-card">
+        <div>
+          <h2 data-i18n="cta_title">Ready to slide?</h2>
+          <p data-i18n="cta_body">Download Takin and turn your favorite images into satisfying puzzles.</p>
+        </div>
+        <div class="cta-row">
+          <div class="store-block">
+            <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.takin.puzzle" target="_blank" rel="noreferrer" data-i18n="cta_play">Google Play</a>
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.takin.puzzle" target="_blank" rel="noreferrer">https://play.google.com/store/apps/details?id=com.takin.puzzle</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<section>
-    <h2>Enfants de moins de 13 ans</h2>
-    <p>
-        Le jeu <strong>Takin</strong> peut être utilisé par des enfants.
-        Aucune donnée personnelle n’est collectée sciemment auprès d’enfants de moins de 13 ans.
-    </p>
-    <p>
-        Si un parent ou tuteur constate qu’un enfant a fourni des informations personnelles,
-        il peut contacter le développeur afin que ces informations soient supprimées.
-    </p>
-</section>
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/app-logo.png" alt="" loading="lazy" />
+        <div>
+          <div style="font-weight: 700;">Takin</div>
+          <div class="footer-tag" data-i18n="footer_tag">Sliding puzzle for everyone.</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html" data-i18n="footer_privacy">Privacy policy</a>
+        <a href="mailto:c59gnowak@gmail.com" data-i18n="footer_contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 
-<section>
-    <h2>Partage des données</h2>
-    <p>
-        Aucune donnée personnelle n’est vendue, échangée ou partagée avec des tiers.
-    </p>
-</section>
+  <script>
+    const translations = {
+      en: {
+        nav_features: "Features",
+        nav_gameplay: "Gameplay",
+        nav_themes: "Themes",
+        nav_download: "Download",
+        nav_menu: "Menu",
+        hero_tag: "Sliding puzzle, reimagined",
+        hero_title: "Takin",
+        hero_subtitle: "Classic sliding puzzle with modern charm.",
+        hero_body: "Solve daily challenges, unlock cozy themes, and turn your own photos into puzzles. Made for quick sessions or long, relaxing runs.",
+        hero_cta_primary: "Get the app",
+        hero_cta_secondary: "See gameplay",
+        hero_note: "No stress. Just satisfying moves and smart hints when you want them.",
+        stat_daily: "Daily puzzle",
+        stat_daily_sub: "Keep the streak alive.",
+        stat_custom: "Custom photos",
+        stat_custom_sub: "Play with your memories.",
+        stat_rank: "Leaderboards",
+        stat_rank_sub: "Compete by moves and time.",
+        features_title: "Built for focus and flow",
+        features_sub: "Daily puzzles, custom photos, and smart tools that keep every move satisfying.",
+        feature_daily_title: "Daily challenge",
+        feature_daily_body: "A fresh puzzle every day with streaks and rewards.",
+        feature_progress_title: "Progressive difficulty",
+        feature_progress_body: "Start simple and slide into bigger grids as you level up.",
+        feature_custom_title: "Your photos, your puzzle",
+        feature_custom_body: "Pick a photo from your phone and choose the size.",
+        feature_help_title: "Smart help",
+        feature_help_body: "Show numbers, swap tiles, or preview the solution when you want a nudge.",
+        feature_themes_title: "Curated themes",
+        feature_themes_body: "Food, animals, city, nature, and more, all illustrated and polished.",
+        feature_leader_title: "Leaderboards",
+        feature_leader_body: "Compete with friends and climb the global ranks.",
+        gameplay_title: "Classic sliding puzzle, modern polish",
+        gameplay_body: "Every puzzle is designed for clean moves, clear goals, and a calm visual style inspired by the app.",
+        gameplay_list_1: "Tap to slide tiles and track your moves.",
+        gameplay_list_2: "Choose from multiple grid sizes, from 3x3 to 6x6.",
+        gameplay_list_3: "Unlock stars, themes, and music as you progress.",
+        gameplay_list_4: "Play offline and pick up where you left off.",
+        themes_title: "Themes that feel alive",
+        themes_body: "Collect playful collections inspired by food, animals, nature, space, and more.",
+        theme_abstract: "Abstract",
+        theme_animals: "Animals",
+        theme_architecture: "Architecture",
+        theme_art: "Art",
+        theme_city: "City",
+        theme_colors: "Colors",
+        theme_desert: "Desert",
+        theme_food: "Food",
+        theme_forest: "Forest",
+        theme_kids: "Kids",
+        theme_mountains: "Mountains",
+        theme_nature: "Nature",
+        theme_ocean: "Ocean",
+        theme_peluche: "Plush",
+        theme_space: "Space",
+        theme_travel: "Travel",
+        cta_title: "Ready to slide?",
+        cta_body: "Download Takin and turn your favorite images into satisfying puzzles.",
+        cta_play: "Google Play",
+        footer_tag: "Sliding puzzle for everyone.",
+        footer_privacy: "Privacy policy",
+        footer_contact: "Contact"
+      },
+      fr: {
+        nav_features: "Fonctionnalites",
+        nav_gameplay: "Gameplay",
+        nav_themes: "Themes",
+        nav_download: "Telecharger",
+        nav_menu: "Menu",
+        hero_tag: "Le taquin, reinvente",
+        hero_title: "Takin",
+        hero_subtitle: "Le taquin classique avec un style moderne.",
+        hero_body: "Relevez le defi quotidien, debloquez des themes apaisants et transformez vos photos en puzzles. Pour des sessions rapides ou longues.",
+        hero_cta_primary: "Obtenir l'app",
+        hero_cta_secondary: "Voir le gameplay",
+        hero_note: "Sans stress. Des coups satisfaisants et des aides quand vous en voulez.",
+        stat_daily: "Defi quotidien",
+        stat_daily_sub: "Gardez la serie vivante.",
+        stat_custom: "Photos perso",
+        stat_custom_sub: "Jouez avec vos souvenirs.",
+        stat_rank: "Classements",
+        stat_rank_sub: "Comparez coups et temps.",
+        features_title: "Concu pour la concentration",
+        features_sub: "Defis quotidiens, photos perso et outils malins pour garder chaque coup satisfaisant.",
+        feature_daily_title: "Defi quotidien",
+        feature_daily_body: "Un puzzle frais chaque jour avec serie et recompenses.",
+        feature_progress_title: "Difficulte progressive",
+        feature_progress_body: "Commencez simple, puis passez a des grilles plus grandes.",
+        feature_custom_title: "Vos photos, votre puzzle",
+        feature_custom_body: "Choisissez une photo et la taille du puzzle.",
+        feature_help_title: "Aide intelligente",
+        feature_help_body: "Afficher les numeros, echanger des tuiles, ou voir la solution.",
+        feature_themes_title: "Themes soignes",
+        feature_themes_body: "Cuisine, animaux, ville, nature, et plus.",
+        feature_leader_title: "Classements",
+        feature_leader_body: "Comparez vos scores et grimpez les rangs.",
+        gameplay_title: "Le taquin classique, avec une finition moderne",
+        gameplay_body: "Chaque puzzle est pense pour des mouvements clairs et un style visuel calme.",
+        gameplay_list_1: "Glissez les tuiles et suivez vos coups.",
+        gameplay_list_2: "Choisissez la taille, de 3x3 a 6x6.",
+        gameplay_list_3: "Gagnez des etoiles et debloquez themes et musiques.",
+        gameplay_list_4: "Jouez hors ligne et reprenez quand vous voulez.",
+        themes_title: "Des themes qui prennent vie",
+        themes_body: "Des collections inspirees de la cuisine, des animaux, de la nature, de l'espace, et plus.",
+        theme_abstract: "Abstrait",
+        theme_animals: "Animaux",
+        theme_architecture: "Architecture",
+        theme_art: "Art",
+        theme_city: "Ville",
+        theme_colors: "Couleurs",
+        theme_desert: "Desert",
+        theme_food: "Cuisine",
+        theme_forest: "Foret",
+        theme_kids: "Enfants",
+        theme_mountains: "Montagnes",
+        theme_nature: "Nature",
+        theme_ocean: "Ocean",
+        theme_peluche: "Peluche",
+        theme_space: "Espace",
+        theme_travel: "Voyage",
+        cta_title: "Pret a glisser?",
+        cta_body: "Telechargez Takin et transformez vos images preferees en puzzles.",
+        cta_play: "Google Play",
+        footer_tag: "Le taquin pour tous.",
+        footer_privacy: "Politique de confidentialite",
+        footer_contact: "Contact"
+      }
+    };
 
-<section>
-    <h2>Modifications</h2>
-    <p>
-        Cette politique de confidentialité peut être mise à jour.
-        Toute modification sera publiée sur cette page.
-    </p>
-</section>
+    const nav = document.querySelector("[data-nav]");
+    const navToggle = document.querySelector("[data-nav-toggle]");
+    const navMenu = document.querySelector("[data-nav-menu]");
 
-<section>
-    <h2>Contact</h2>
-    <p>
-        Pour toute question concernant ces règles de confidentialité,
-        vous pouvez contacter le développeur à l’adresse suivante :
-    </p>
-    <p><strong>Email :</strong> c59gnowak@gmail.com</p>
-</section>
+    if (nav && navToggle && navMenu) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
 
-<footer>
-    <p>Dernière mise à jour : décembre 2025</p>
-</footer>
+      navMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
 
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && nav.classList.contains("is-open")) {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    const langButtons = document.querySelectorAll("[data-lang-toggle]");
+    const translatable = document.querySelectorAll("[data-i18n]");
+
+    function setLanguage(lang) {
+      const langData = translations[lang] || translations.en;
+      document.documentElement.setAttribute("lang", lang);
+      langButtons.forEach((btn) => {
+        btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
+      });
+      translatable.forEach((node) => {
+        const key = node.dataset.i18n;
+        if (langData[key]) {
+          node.textContent = langData[key];
+        }
+      });
+      localStorage.setItem("takin_lang", lang);
+    }
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setLanguage(btn.dataset.lang);
+      });
+    });
+
+    const stored = localStorage.getItem("takin_lang");
+    const browser = navigator.language && navigator.language.toLowerCase().startsWith("fr") ? "fr" : "en";
+    setLanguage(stored || browser || "en");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("ready");
+    });
+  </script>
 </body>
 </html>
